@@ -1,3 +1,4 @@
+/* timer ile kesmeye gidilerek her 1 sn de ledler toggle olacaktir. */
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
 
