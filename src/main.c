@@ -41,11 +41,12 @@ void NVIC_Config(void) { // interrupt yoneticisi
 	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x00; 	// coklu interruptlarda gecerli oncelik icin 
 	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x00;		// coklu interruptlarda gecerli oncelik icin
 
-	TIM_ITConfig(TIM3,TIM_IT_Update,ENABLE);
+	TIM_ITConfig(TIM3,TIM_IT_Update,ENABLE); // timer ile interrupt i bir arada kullanmak istiyor istiyorsak bu fonk mutlaka baglamaliyiz.
+						 // aksi takdirde interrupt a girmayecektir.
 	NVIC_Init(&NVIC_InitStruct);
 }
 
-void TIME3_IRQHandler() { // her timer tasasi oldugunda yani 1999 oldugunda , Update interrupt flag (UIF) bayragi kalkacak ve fonksiyona gelecek 
+void TIM3_IRQHandler() { // her timer tasasi oldugunda yani 1999 oldugunda , Update interrupt flag (UIF) bayragi kalkacak ve fonksiyona gelecek 
 	GPIO_ToggleBits(GPIOD,GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15);
 
 	TIM_ClearITPendingBit(TIM3,TIM_IT_Update); // UIF flag i kalktiginda kendisi tekrardan pasif olmaz.
